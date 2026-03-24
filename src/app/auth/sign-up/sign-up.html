@@ -1,1 +1,89 @@
-<p>sign-up works!</p>
+<form [formGroup]="signUpFormGroup" (ngSubmit)="onSubmit()" class="sign-up-form">
+    <section class="sign-up-form__section">
+        <h2>Basic Information</h2>
+
+        <div>
+            <div class="sign-up-form__group">
+                <input formControlName="firstName" type="text" placeholder="First name" class="sign-up-form__field"/>
+                @if (signUpFormGroup.get('firstName')?.hasError('required') && signUpFormGroup.get('firstName')?.touched) {
+                    <span class="sign-up-form__error">First name is required</span>
+                }
+            </div>
+            <div class="sign-up-form__group">
+                <input formControlName="middleName" type="text" placeholder="Middle name" class="sign-up-form__field"/>
+            </div>
+        </div>
+
+        <div class="sign-up-form__group">
+            <input formControlName="lastName" type="text" placeholder="Last name" class="sign-up-form__field"/>
+            @if (signUpFormGroup.get('lastName')?.hasError('required') && signUpFormGroup.get('lastName')?.touched) {
+                <span class="sign-up-form__error">Last name is required</span>
+            }
+        </div>
+
+        <div class="sign-up-form__group">
+            <select formControlName="gender" class="sign-up-form__field">
+                <option value="">Select gender</option>
+                @for (gender of genders; track gender) {
+                    <option [value]="gender">{{gender}}</option>
+                }
+            </select>
+        </div>
+
+    </section>
+    <section class="sign-up-form__section">
+        <h2>Sign In Information</h2>
+
+        <div class="sign-up-form__group">
+            <input formControlName="email" type="email" placeholder="Email" class="sign-up-form__field"/>
+            @if (signUpFormGroup.get('email')?.hasError('required') && signUpFormGroup.get('email')?.touched) {
+                <span class="sign-up-form__error">Email is required</span>
+            }
+            @if (signUpFormGroup.get('email')?.hasError('email') && signUpFormGroup.get('email')?.touched) {
+                <span class="sign-up-form__error">Invalid email format</span>
+            }
+        </div>
+
+        <div class="sign-up-form__group">
+            <input formControlName="password" type="password" placeholder="Password" class="sign-up-form__field"/>
+
+            @if (signUpFormGroup.get('password')?.hasError('required') && signUpFormGroup.get('password')?.touched) {
+                <span class="sign-up-form__error">Password is required</span>
+            }
+
+            @if (signUpFormGroup.get('password')?.hasError('minlength') && signUpFormGroup.get('password')?.touched) {
+                <span class="sign-up-form__error">Password must be at least 8 characters</span>
+            }
+
+            @if (signUpFormGroup.get('password')?.hasError('noUpperCase') && signUpFormGroup.get('password')?.touched) {
+                <span class="sign-up-form__error">Password must contain at least one uppercase letter</span>
+            }
+
+            @if (signUpFormGroup.get('password')?.hasError('noLowerCase') && signUpFormGroup.get('password')?.touched) {
+                <span class="sign-up-form__error">Password must contain at least one lowercase letter</span>
+            }
+
+            @if (signUpFormGroup.get('password')?.hasError('noNumber') && signUpFormGroup.get('password')?.touched) {
+                <span class="sign-up-form__error">Password must contain at least one number</span>
+            }
+
+            @if (signUpFormGroup.get('password')?.hasError('noSpecialCharacter') && signUpFormGroup.get('password')?.touched) {
+                <span class="sign-up-form__error">Password must contain at least one special character</span>
+            }
+        </div>
+        <div class="sign-up-form__group">
+            <input formControlName="confirmPassword" type="password" placeholder="Confirm password" class="sign-up-form__field"/>
+
+            @if (signUpFormGroup.get('confirmPassword')?.hasError('required') && signUpFormGroup.get('confirmPassword')?.touched) {
+                <span class="sign-up-form__error">Confirm password is required</span>
+            }
+
+            @if (signUpFormGroup.hasError('passwordMismatch') && signUpFormGroup.get('confirmPassword')?.touched) {
+                <span class="sign-up-form__error">Passwords do not match</span>
+            }
+        </div>
+    </section>
+
+    <button type="submit" class="sign-up-form__submit" [disabled]="signUpFormGroup.invalid">Sign Up</button>
+    <a href="/auth/sign-in">I have an account</a>
+</form>
