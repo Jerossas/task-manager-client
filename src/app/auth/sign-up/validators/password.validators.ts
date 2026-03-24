@@ -23,3 +23,9 @@ export function hasSpecialCharacterValidator(control: AbstractControl): Validati
   if (!value) return null;
   return /[@$!%*?&]/.test(value) ? null : { noSpecialCharacter: true };
 }
+
+export function passwordMatchValidator(control: AbstractControl): ValidationErrors | null {
+  const password = control.get('password')?.value;
+  const confirmPassword = control.get('confirmPassword')?.value;
+  return password === confirmPassword ? null : { passwordMismatch: true };
+}
