@@ -21,5 +21,5 @@ export function hasNumberValidator(control: AbstractControl): ValidationErrors |
 export function hasSpecialCharacterValidator(control: AbstractControl): ValidationErrors | null {
   const value = control.value as string;
   if (!value) return null;
-  return /[!@#$%^&*()-+]/.test(value) ? null : { noSpecialCharacter: true };
+  return /[@$!%*?&]/.test(value) ? null : { noSpecialCharacter: true };
 }
