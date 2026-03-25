@@ -3,10 +3,11 @@ import { FormGroup, FormControl, Validators, ReactiveFormsModule } from '@angula
 import { hasUpperCaseValidator, hasLowerCaseValidator, hasNumberValidator, hasSpecialCharacterValidator, passwordMatchValidator } from './validators/password.validators';
 import { AuthService } from '../auth-service';
 import { SignUpRequest } from '../models/sign-up-request.model';
+import { NgClass } from '@angular/common';
 
 @Component({
   selector: 'app-sign-up',
-  imports: [ReactiveFormsModule],
+  imports: [ReactiveFormsModule, NgClass],
   templateUrl: './sign-up.html',
   styleUrl: './sign-up.css',
 })
